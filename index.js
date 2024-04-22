@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import session from 'express-session';
 import pg from "pg";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs'; // Change import statement
 
 const app = express();
 const port = 3000;
@@ -40,20 +40,6 @@ app.use(async (req, res, next) => {
     }
 });
 
-// // Middleware for authentication (should come after session middleware)
-// app.use((req, res, next) => {
-//     if (req.path === '/' || req.path === '/login' || req.path === '/signup' || req.path.startsWith('/post/')) {
-//         // Skip authentication check for the home page, login, signup, and post routes
-//         next();
-//     } else if (res.locals.isAuthenticated) {
-//         // User is authenticated, proceed to next middleware
-//         next();
-//     } else {
-//         // User is not authenticated, redirect to login page
-//         res.redirect("/login");
-//     }
-// });
-
 // Routes
 app.get("/", async (req, res) => {
     try {
@@ -76,12 +62,11 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    const username= req.body.username;
+    const username = req.body.username;
     const password = req.body.password;
-    
 
     // Form validation
-    if (!username|| !password) {
+    if (!username || !password) {
         return res.status(400).send("Username and password are required");
     }
 
@@ -116,7 +101,6 @@ app.get("/signup", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-    console.log("in register")
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
@@ -167,10 +151,8 @@ app.post("/create-project", async (req, res) => {
         const title = req.body.title;
         const description = req.body.description;
         const startDate = req.body.start_date;
-const endDate = req.body.end_date;
-const phase = req.body.phase;
-console.log(startDate);
-console.log(phase);
+        const endDate = req.body.end_date;
+        const phase = req.body.phase;
 
         // Perform form validation
         if (!title || !description) {
@@ -178,7 +160,7 @@ console.log(phase);
         }
 
         // Insert project into the database
-        await db.query("INSERT INTO projects (title, short_description, uid, start_Date, end_date, phase) VALUES ($1, $2, $3, $4, $5, $6)", [title, description, req.session.userId, startDate, endDate, phase  ]);
+        await db.query("INSERT INTO projects (title, short_description, uid, start_date, end_date, phase) VALUES ($1, $2, $3, $4, $5, $6)", [title, description, req.session.userId, startDate, endDate, phase]);
 
         // Redirect to home page
         res.redirect("/");
@@ -215,7 +197,6 @@ app.get("/logout", (req, res) => {
         }
     });
 });
-
 
 app.listen(port, () => {
     console.log("Running on Port 3000");
