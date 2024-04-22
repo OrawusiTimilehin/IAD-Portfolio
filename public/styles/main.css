@@ -1,0 +1,202 @@
+/* General */
+
+body{
+    margin: 0;
+    padding: 0;
+    background: #1A1A1A;
+    margin: 0;
+
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+
+.body-text{
+    background: linear-gradient(90deg, #FFF4F4 2.25%, rgba(255, 245, 245, 0.90625) 11.39%);
+    font-family: 'Outfit', Arial, Helvetica, sans-serif;
+    font-weight: 200;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+button{
+    border: solid 0.1rem linear-gradient(90deg, #FFF4F4 2.25%, rgba(255, 245, 245, 0.90625) 11.39%);
+    border-radius: 1.5rem;
+    background-color: transparent;
+    font-family: 'Questrial', sans-serif;
+    width: 4.6rem;
+    height: 2.4rem;
+    cursor: pointer;
+    
+}
+
+button:hover{
+    background-color: rgba(253, 251, 251, 0.1);
+    transform: scale(1.05);
+}
+.navbar-items:hover{
+    transform: scale(1.05);
+}
+
+/* Navbar */
+
+#navbar{
+    color: rgba(209, 208, 208, 0.95);
+    display: flex;
+    font-family: 'Outfit', Arial, Helvetica, sans-serif;
+    font-size: 1.05rem ;
+    font-weight: 100;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.4rem;
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+
+}
+
+
+
+.navbar-link{
+    margin-right: 2rem;
+}
+.navbar-link:hover {
+    background: linear-gradient(90deg, #FFF4F4 2.25%, rgba(255, 245, 245, 0.90625) 30.39%, rgba(255, 255, 255, 0) 180.19%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+  }
+
+.navbar-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+
+    width: 35%;
+    column-gap: 5rem;
+}
+
+.navbar-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2rem;
+    column-gap: 1.5rem;
+}
+
+#logo{
+    font-size: 1.5rem;
+}
+#logo-pic{
+    width: 2rem;
+}
+
+
+/* projects section */
+#header{
+    font-size: 4rem;
+    text-align: center;
+}
+
+#projects{
+    margin-top: 4rem;
+    margin-bottom: 9rem;
+}
+
+
+    
+
+.project-box{
+    background-color: rgba(209, 208, 208, 0.02);
+    height: 25rem;
+    width: 18rem;
+    transition: background-color 0.15s transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.project-box:hover {
+    background-color: rgba(209, 208, 208, 0.1);
+    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+}
+
+.projects-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    align-items: space-between;
+    place-items: center;
+    margin: 0 auto;
+    row-gap: 4.5rem;
+    text-align: center;
+    width: 100%;
+    
+
+}
+
+.projects-grid-container{
+    width: 90%;
+    margin: auto;
+}
+.project-text{
+    background: linear-gradient(90deg, #FFF4F4 2.25%, rgba(255, 245, 245, 0.90625) 11.39%, rgba(255, 255, 255, 0) 139.19%);
+    font-family: 'Outfit', Arial, Helvetica, sans-serif;
+    font-weight: 200;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.project-title{
+    font-size: 2rem;
+    margin: 2rem auto;
+    width: 15rem;
+}
+
+.project-title-extra{
+    margin-bottom: 4rem;
+}
+
+.project-title-coming-soon{
+    margin-top: 5rem;
+}
+
+.project-title-web{
+    margin-top: 3rem;
+}
+
+.project-icons{
+    margin-top: 4rem;
+    width: 4rem;
+}
+
+
+/* New project Form */
+#form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#new-project{
+    
+}
+
+#new-project-title{
+    text-align: center;
+}

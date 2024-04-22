@@ -1,0 +1,68 @@
+form{
+    width: 90%;
+    font-family: "Questrial", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#auth-section{
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#auth-card{
+    height: 30rem;
+    width: 20rem;
+    border: solid 0.1rem #ffffff;
+    border-radius: 1.5rem;
+    margin: 0rem auto;
+    position: relative;
+    top: -2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}   
+
+.auth-form{
+    display: block;
+}
+
+.auth-form-labels{
+    place-self: flex-start;
+}
+
+.auth-form-inputs{
+    width: 100%;
+    height: 2rem;
+    background-color: transparent;
+    border: solid 0.05rem #ffffff;
+    border-radius: 0.3rem;
+    color: #ffffff;
+    margin: 0.8rem auto;
+    font-family: "Questrial", sans-serif;
+}
+
+
+.submit-button{
+    width: 4.9rem;
+    height: 2.4rem;
+    margin-top: 0.9rem;
+    border: solid 0.085rem #ffffff;
+    border-radius: 1.5rem;
+    background-color: transparent;
+    color: white;
+    transition: 0.15s ease-in-out;
+
+}
+
+.submit-button:hover{
+    background-color: white;
+    color: #132644;
+    transform: scale(1.05);
+}

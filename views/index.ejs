@@ -1,0 +1,84 @@
+<!DOCTYPE htlml>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles/main.css">
+        <title> AProject</title>
+    </head>
+    <body>
+        <%- include('navbar.ejs') %>
+        <!-- Project Section  -->
+        <div>
+            <section id="projects"> 
+                <h1 id="header" class="body-text"> Projects </h1>
+                <!-- The Container to contain the CSS Grid -->
+                <!-- The Container in which the Display grid is applied to. -->
+                <div class="projects-grid-container">
+                    <div class="projects-container">
+                        <% if (locals.projects) { %>
+                        <% projects.forEach(project => { %>
+                            <a href="/post/<%=project.pid%>">
+                            <div class="project-box">
+                                <h3 class="project-title project-text"> <%= project.title %> </h3>
+                                <p class="body-text"> <% project.start_date %></p>
+                                <p class="project-text"> <%= project.short_description %></p>
+                            </div>
+                        </a>
+                       <% })%>
+                       <% }else{%>
+                        <a href="">
+                            <div class="project-box">
+                                
+                                <h3 class="project-title project-text"> Machine Learning & Data Science </h3>
+                                <p class="body-text"> Start Date: </p>
+                                <p class="project-text">A Sophisticated Regression model predicts earnings, analyzes wage disparities, informs evidence-based solutions for economic dynamics.</p>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="project-box">
+                                
+                                <h3 class="project-title project-text project-title-extra"> Web Development </h3>
+                                <p class="body-text"> Start Date: </p>
+                                <p class="project-text">Innovative blog developed with HTML, CSS, Bootstrap, Flask, and immersive user experience, responsiveness, and functionality.</p>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="project-box">
+                       
+                                <h3 class="project-title project-text project-title-extra"> Scripting & Gui Application </h3>
+                                <p class="body-text"> Start Date: </p>
+                                <p class="project-text">Weather app automates weather data retrieval and processing. GUI app provides intuitive interface for weather data visualization and user interaction.</p>
+                            </div>
+                        </a>
+                        <a href="">
+                            <div class="project-box">
+                                
+                                <h3 class="project-title project-text project-title-web"> Web Scraping & Automation </h3>
+                                <p class="body-text"> Start Date: </p>
+                                <p class="project-text">Scripting program monitors internet connection and tweets at ISP provider when low connectivity is detected, providing automated and efficient feedback system.</p>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="project-box">
+                             
+                                <h3 class="project-title project-text project-title-coming-soon">Coming Soon</h3>
+                                <p class="body-text"> Start Date: </p>
+                            </div>
+                        </a>
+                        <a href="#">
+                            <div class="project-box">
+     
+                                <h3 class="project-title project-text project-title-coming-soon">Coming Soon</h3>
+                                <p class="body-text"> Start Date: </p>
+                            </div>
+                        </a>
+                        <% }%>
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+        <% if (isAuthenticated) { %>
+            <a href="/create"><button>Create Project</button></a>
+        <% } %>
+    </body>
+</html>

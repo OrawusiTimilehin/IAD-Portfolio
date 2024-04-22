@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('header.ejs') %>
+
+        
+    </head>
+
+
+    <!-- NAVBAR TO BY INCLUDED CONSISTENTLY ON ALL PAGES WITHOUT REPEATING THE CODE - ACHIEVED USING TEMPLATING OR BACKEND WITH EXPRESS -->
+    <%- include('navbar.ejs') %>
+
+
+
+    <section id="auth-section">
+        <div id="auth-card">
+            <form method="POST", action="/register">
+                <label class="body-text auth-form auth-form-labels" for="email-signup"> Email: </label>
+                <input  class="auth-form auth-form-inputs" type="email" name="email" id="email-signup" placeholder=" Enter your email here">
+                <label class="body-text auth-form auth-form-labels" for="password-signup"> Password: </label>
+                <input class="auth-form auth-form-inputs" type="password" name="password" id="password-signup">
+                <label class="body-text auth-form auth-form-labels" for="username-signup"> Username: </label>
+                <input  class="auth-form auth-form-inputs" type="text" name="username" id="username-signup" placeholder=" Enter your Username here">
+                <label class="body-text auth-form auth-form-labels" for="uni-id"> University ID: </label>
+                <input  class="auth-form auth-form-inputs" type="text" name="uni-id" id="uni-id" placeholder=" Enter your University ID here">
+                <label class="body-text auth-form auth-form-labels" for="password-confirm-signup"> Confirm Password: </label>
+                <input class="auth-form auth-form-inputs" type="password" name="confirm-password" id="password-confirm-signup">
+                <input type="submit" class="submit-button" name="submit-button" id="submit-button" value="Sign Up">
+            </form>
+
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="scripts\script.js"></script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <%- include('header.ejs') %>
+        
+    </head>
+
+
+    <!-- NAVBAR TO BY INCLUDED CONSISTENTLY ON ALL PAGES WITHOUT REPEATING THE CODE - ACHIEVED USING TEMPLATING OR BACKEND WITH EXPRESS -->
+    <%- include('navbar.ejs') %>
+
+
+
+    <section id="auth-section">
+        <div >
+            <h2 class="body-text"><%= project.title %></h2>
+            <p class="body-text"><strong>Start Date:</strong> <%= project.start_date %></p>
+            <p class="body-text"><strong>End Date:</strong> <%= project.end_date %></p>
+            <p class="body-text"><strong>Phase:</strong> <%= project.phase %></p>
+            <p class="body-text"><strong>Description:</strong> <%= project.short_description %></p>
+        </div>
+    </section>
+
+    
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('header.ejs') %>
+        
+    </head>
+
+
+    <!-- NAVBAR TO BY INCLUDED CONSISTENTLY ON ALL PAGES WITHOUT REPEATING THE CODE - ACHIEVED USING TEMPLATING OR BACKEND WITH EXPRESS -->
+    <%- include('navbar.ejs') -%>
+
+
+    <h2 id="new-project-title" class="body-text">Add New Project</h2>
+    <div id="form-container">
+        <form id="new-project" action="/create-project" method="post">
+            <label class="body-text" for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+
+            <label class="body-text"  for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required><br>
+
+            <label class="body-text"  for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date"><br>
+
+            <label class="body-text"  for="phase">Phase:</label>
+            <select id="phase" name="phase">
+                <option value="design">Design</option>
+                <option value="development">Development</option>
+                <option value="testing">Testing</option>
+                <option value="deployment">Deployment</option>
+                <option value="complete">Complete</option>
+            </select><br>
+
+            <label class="body-text"  for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+       
+
+ 
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="scripts\script.js"></script>
+</html>

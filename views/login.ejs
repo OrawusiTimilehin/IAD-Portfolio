@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('header.ejs') %>
+        
+    </head>
+
+
+    <!-- NAVBAR TO BY INCLUDED CONSISTENTLY ON ALL PAGES WITHOUT REPEATING THE CODE - ACHIEVED USING TEMPLATING OR BACKEND WITH EXPRESS -->
+    <%- include('navbar.ejs') -%>
+
+
+
+    <section id="auth-section">
+        <div id="auth-card">
+            <form>
+                <label class="body-text auth-form auth-form-labels" for="email-login"> Email: </label>
+                <input  class="auth-form auth-form-inputs" type="email" name="email" id="email-login" placeholder=" Enter your email here">
+                <label class="body-text auth-form auth-form-labels" for="password-login"> Password: </label>
+                <input class="auth-form auth-form-inputs" type="password" name="password" id="password-login">
+                <input type="submit" class="submit-button" name="login-button" id="login-button" value="Log in">
+            </form>
+
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="scripts\script.js"></script>
+</html>
