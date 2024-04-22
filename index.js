@@ -13,11 +13,11 @@ const db = new pg.Client({
     database: "IAD_Portfolio",
     password: "#tesanORA3107",
     port: "5433"
-})
+});
 
 db.connect();
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(session({
     secret: 'your_secret_key', // Change this to a random string
@@ -25,27 +25,44 @@ app.use(session({
     saveUninitialized: true
 }));
 
+// Middleware to set userId session variable (should come before authentication middleware)
+app.use(async (req, res, next) => {
+    try {
+        if (req.session && req.session.userId) {
+            res.locals.isAuthenticated = true;
+        } else {
+            res.locals.isAuthenticated = false;
+        }
+        next();
+    } catch (error) {
+        console.error("Session error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
+// // Middleware for authentication (should come after session middleware)
+// app.use((req, res, next) => {
+//     if (req.path === '/' || req.path === '/login' || req.path === '/signup' || req.path.startsWith('/post/')) {
+//         // Skip authentication check for the home page, login, signup, and post routes
+//         next();
+//     } else if (res.locals.isAuthenticated) {
+//         // User is authenticated, proceed to next middleware
+//         next();
+//     } else {
+//         // User is not authenticated, redirect to login page
+//         res.redirect("/login");
+//     }
+// });
+
+// Routes
 app.get("/", async (req, res) => {
     try {
-    const results = await db.query("SELECT * FROM projects");
-    const isAuthenticated = req.session.userId ? true : false;
-    let projects = results.rows;
-    res.render("index.ejs",  {
-        projects: projects,
-        isAuthenticated : isAuthenticated
-    });
-}catch (error) {
-    console.error("Error fetching projects:", error);
-    res.status(500).send("Internal Server Error");
-}
-})
-
-app.get("/", async (req, res) => {
-    try {
-        const projects = await db.query("SELECT * FROM projects");
-        const isAuthenticated = req.session.userId ? true : false;
-        res.render("index.ejs", { projects, isAuthenticated });
+        const results = await db.query("SELECT * FROM projects");
+        const projects = results.rows;
+        res.render("index.ejs", { 
+            projects,
+            isAuthenticated: res.locals.isAuthenticated
+        });
     } catch (error) {
         console.error("Error fetching projects:", error);
         res.status(500).send("Internal Server Error");
@@ -53,20 +70,53 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    const isAuthenticated = req.session.userId ? true : false;
     res.render("login.ejs", {
-        isAuthenticated: isAuthenticated
+        isAuthenticated: res.locals.isAuthenticated
     });
-})
+});
+
+app.post("/login", async (req, res) => {
+    const username= req.body.username;
+    const password = req.body.password;
+    
+
+    // Form validation
+    if (!username|| !password) {
+        return res.status(400).send("Username and password are required");
+    }
+
+    try {
+        // Check if the user exists in the database
+        const user = await db.query("SELECT * FROM users WHERE username = $1", [username]);
+        if (user.rows.length === 0) {
+            return res.status(404).send("User not found");
+        }
+
+        // Check if the password is correct
+        const validPassword = await bcrypt.compare(password, user.rows[0].password);
+        if (!validPassword) {
+            return res.status(401).send("Invalid password");
+        }
+
+        // Set userId session variable
+        req.session.userId = user.rows[0].uid;
+
+        // Redirect to home page after successful login
+        res.redirect("/");
+    } catch (error) {
+        console.error("Error logging in:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 app.get("/signup", (req, res) => {
-    const isAuthenticated = req.session.userId ? true : false;
     res.render("signup.ejs", {
-        isAuthenticated: isAuthenticated
+        isAuthenticated: res.locals.isAuthenticated
     });
-})
+});
 
 app.post("/register", async (req, res) => {
+    console.log("in register")
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
@@ -87,10 +137,10 @@ app.post("/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Insert user into database and return the ID of the inserted row
-const result = await db.query("INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING uid", [username, email, hashedPassword]);
+        const result = await db.query("INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING uid", [username, email, hashedPassword]);
 
-// Get the ID of the last inserted row
-const userId = result.rows[0].id;
+        // Set userId session variable
+        req.session.userId = result.rows[0].uid;
 
         // Redirect to home page
         res.redirect("/");
@@ -100,31 +150,73 @@ const userId = result.rows[0].id;
     }
 });
 
-
 app.get("/create", (req, res) => {
-    res.render("create.ejs");
-})
+    res.render("create.ejs", {
+        isAuthenticated: res.locals.isAuthenticated
+    });
+});
 
-// app.get("/posts/:id", async (req, res) => {
-//     const id = req.params.id;
-//     const result = await db.query("SELECT * from projects WHERE pid = $1", [id]);
-//     const project = result.rows[0];
-//     console.log(project);
-//     res.render("post.ejs", {
-//         project: project
-//     });
-// })
+app.post("/create-project", async (req, res) => {
+    try {
+        // Ensure user is authenticated
+        if (!req.session.userId) {
+            return res.status(401).send("Unauthorized");
+        }
+
+        // Extract project data from request body
+        const title = req.body.title;
+        const description = req.body.description;
+        const startDate = req.body.start_date;
+const endDate = req.body.end_date;
+const phase = req.body.phase;
+console.log(startDate);
+console.log(phase);
+
+        // Perform form validation
+        if (!title || !description) {
+            return res.status(400).send("Title and description are required");
+        }
+
+        // Insert project into the database
+        await db.query("INSERT INTO projects (title, short_description, uid, start_Date, end_date, phase) VALUES ($1, $2, $3, $4, $5, $6)", [title, description, req.session.userId, startDate, endDate, phase  ]);
+
+        // Redirect to home page
+        res.redirect("/");
+    } catch (error) {
+        console.error("Error creating project:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 app.get("/post/:project_id", async (req, res) => {
-    const id = req.params.project_id;
-    const result = await db.query("SELECT * from projects WHERE pid = $1", [id]);
-    const project = result.rows[0];
-    console.log(project);
-    res.render("post.ejs", {
-        project: project
+    const project_id = req.params.project_id;
+    try {
+        const result = await db.query("SELECT * FROM projects WHERE pid = $1", [project_id]);
+        const project = result.rows[0];
+        res.render("post.ejs", {
+            project,
+            isAuthenticated: res.locals.isAuthenticated
+        });
+    } catch (error) {
+        console.error("Error fetching project:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.get("/logout", (req, res) => {
+    // Destroy the session
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error destroying session:", err);
+            res.status(500).send("Internal Server Error");
+        } else {
+            // Redirect to the home page after logout
+            res.redirect("/");
+        }
     });
-})
+});
+
 
 app.listen(port, () => {
-    console.log("Running on Port 3000")
-})
+    console.log("Running on Port 3000");
+});

@@ -13,9 +13,9 @@
 
     <section id="auth-section">
         <div id="auth-card">
-            <form>
-                <label class="body-text auth-form auth-form-labels" for="email-login"> Email: </label>
-                <input  class="auth-form auth-form-inputs" type="email" name="email" id="email-login" placeholder=" Enter your email here">
+            <form action="/login" method="post">
+                <label class="body-text auth-form auth-form-labels" for="username"> Username: </label>
+                <input  class="auth-form auth-form-inputs" type="text" name="username" id="username" placeholder=" Enter your Username here">
                 <label class="body-text auth-form auth-form-labels" for="password-login"> Password: </label>
                 <input class="auth-form auth-form-inputs" type="password" name="password" id="password-login">
                 <input type="submit" class="submit-button" name="login-button" id="login-button" value="Log in">
