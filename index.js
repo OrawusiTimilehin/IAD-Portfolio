@@ -2,17 +2,19 @@ import express from "express";
 import bodyParser from "body-parser";
 import session from 'express-session';
 import pg from "pg";
-import bcrypt from 'bcryptjs'; // Change import statement
+import bcrypt from 'bcryptjs'; 
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const port = 3000;
 
 const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "IAD_Portfolio",
-    password: "#tesanORA3107",
-    port: "5433"
+    user: process.env.USER,
+    host: process.env.HOST,
+    database: process.env.DB,
+    password: process.env.PASSWORD,
+    port: process.env.PORT
 });
 
 db.connect();
