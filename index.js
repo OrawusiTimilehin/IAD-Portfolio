@@ -23,31 +23,7 @@ app.use(session({
     secret: 'your_secret_key', // Change this to a random string
     resave: false,
     saveUninitialized: true
-    
 }));
-
-// Middleware to set userId session variable (should come before authentication middleware)
-app.use((req, res, next) => {
-    if (req.session && req.session.userId) {
-        res.locals.isAuthenticated = true;
-    } else {
-        res.locals.isAuthenticated = false;
-    }
-    next();
-});
-// Middleware for authentication (should come after session middleware)
-app.use((req, res, next) => {
-    if (res.locals.isAuthenticated) {
-        // User is authenticated, proceed to next middleware
-        next();
-    } else {
-        // User is not authenticated, handle accordingly (e.g., redirect to login page)
-        res.redirect("/login");
-    }
-});
-
-
-
 
 
 app.get("/", async (req, res) => {
