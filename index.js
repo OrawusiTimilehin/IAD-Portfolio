@@ -14,7 +14,7 @@ const db = new pg.Client({
     host: "localhost",
     database: "IAD_Portfolio",
     password: "#tesanORA3107",
-    port: "5433"
+    port: "5432"
 });
 
 db.connect();
