@@ -14,7 +14,10 @@ const db = new pg.Client({
     host: "cojpg0ud3nmc73bvurtg-a.oregon-postgres.render.com",
     database:"portfolio_db_gywm",
     password: "2IUgqIKtdo2xGyYXdntw9Wl2k2doye09",
-    port: "5432"
+    port: "5432",
+    ssl: {
+        rejectUnauthorized: false, // Set to false if you're using self-signed certificates
+      },
 });
 
 db.connect();
