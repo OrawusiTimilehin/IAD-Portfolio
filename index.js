@@ -10,11 +10,11 @@ const app = express();
 const port = 3000;
 
 const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "IAD_Portfolio",
-    password: "#tesanORA3107",
-    port: "5432"
+    user: process.env.USER,
+    host: process.env.HOST,
+    database: process.env.DB,
+    password: process.env.PASSWORD,
+    port: process.env.PORT
 });
 
 db.connect();
