@@ -7,14 +7,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000; // Use the PORT environment variable if provided, otherwise default to 3000
+const port = 3000;
 
 const db = new pg.Client({
-    user: process.env.USER,
-    host: process.env.HOST,
-    database: process.env.DB,
-    password: process.env.PASSWORD,
-    port: process.env.PORT
+    user: "postgres",
+    host: "localhost",
+    database: "IAD_Portfolio",
+    password: "#tesanORA3107",
+    port: "5433"
 });
 
 db.connect();
